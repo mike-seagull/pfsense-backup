@@ -7,6 +7,7 @@ import getpass
 import urllib
 import urllib2
 import cookielib
+from datetime import datetime
 from bs4 import BeautifulSoup
 
 
@@ -44,7 +45,9 @@ class PFSenseBackup(object):
     def _get_backup_file(self, directory, target_file):
         backup_file = target_file
         if backup_file == None:
-            backup_file = 'pfsense-backup.xml'
+            now = datetime.now()
+            formated_date = now.strftime('%Y-%m-%d')
+            backup_file = 'pfsense-backup.%s.xml' % formated_date
         if directory != None:
             backup_file = os.path.join(directory, backup_file)
         return backup_file
